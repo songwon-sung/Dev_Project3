@@ -1,11 +1,21 @@
-import TodoListItem from './TodoListItem';
+import TodoListItem from "./TodoListItem";
 
-export default function TodoList() {
+interface TodoListProps {
+  todos: { id: number; text: string }[];
+  onDelete: (id: number) => void;
+}
+
+export default function TodoList({ todos, onDelete }: TodoListProps) {
   return (
-    <ul className='divide-y divide-gray-200'>
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
+    <ul>
+      {todos.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          onDelete={onDelete}
+        />
+      ))}
     </ul>
   );
 }
