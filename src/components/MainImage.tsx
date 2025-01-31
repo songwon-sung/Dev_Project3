@@ -127,7 +127,7 @@ export default function MainImage(props: MainImageProps) {
       >
         {contents.map((content) => (
           <Link
-            to={`detail/${mediaType}/${content.id}`}
+            to={`/detail/${mediaType}/${content.id}`}
             key={content.id}
             className="w-[30rem] h-[30.125rem] bg-gray01 bg-cover bg-center
               flex flex-col justify-end items-center"
