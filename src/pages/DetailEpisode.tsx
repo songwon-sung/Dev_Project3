@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../api/axios";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +6,9 @@ import ContentOverview from "../components/detailContent/ContentOverview";
 import fulledStar from "../assets/star/fulledStar.svg";
 import halfStar from "../assets/star/halfStar.svg";
 import emptyStar from "../assets/star/emptyStar.svg";
+import seasonSelect from "../assets/arrow/seasonSelect.svg";
+import seasonSelectDone from "../assets/arrow/seasonSelectDone.svg";
+import noImage from "../assets/noImage/noImage.svg";
 
 interface ContentType {
   backdrop_path: string;
@@ -53,32 +56,34 @@ export default function DetailEpisode() {
   const [contentInfo, setContentInfo] = useState<ContentType>();
   const [seasonsInfo, setSeasonsInfo] = useState<SeasonsType>();
   const [episodes, setEpisodes] = useState<EpisodesType[]>([]);
+  const [selectSeason, setSelectSeason] = useState(false);
+  const [page, setPage] = useState<number>(1);
+  const [remainRoad, setRemainRoad] = useState(true);
   // console.log(seasonsInfo);
 
   /* 컨텐츠 정보 불러오기 */
   useEffect(() => {
     const fetchContent = async () => {
-      const contentDetails = `${media}/${contentId}?api_key=${API_KEY}&language=ko-KR`;
-
       try {
-        const [detailsResponse] = await Promise.all([
-          axios.get(`${API_URL}${contentDetails}`),
-        ]);
-        // 데이터 가져오기
-        const fetchedContents: ContentType = detailsResponse.data;
-        const fetchedSeasons = detailsResponse.data.seasons.find(
+        const { data } = await axios.get(
+          `${API_URL}${media}/${contentId}?api_key=${API_KEY}&language=ko-KR`
+        );
+        const selectedSeason = data.seasons.find(
           (season: SeasonsType) => season.id === seasonId
         );
 
-        setContentInfo(fetchedContents);
-        setSeasonsInfo(fetchedSeasons);
+        setContentInfo(data);
+        setSeasonsInfo(selectedSeason);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchContent();
-  }, [contentId]);
+  }, [contentId, seasonId]);
+  // console.log(contentInfo);
+  // console.log(page);
 
+  /* 에피소드 불러오기 */
   useEffect(() => {
     if (!seasonsInfo) return;
 
@@ -89,17 +94,52 @@ export default function DetailEpisode() {
         const [episodesResponse] = await Promise.all([
           axios.get(`${API_URL}${seasonDetails}`),
         ]);
-        // 데이터 가져오기
-        const fetchedEpisodes: EpisodesType[] = episodesResponse.data.episodes;
-        console.log(fetchedEpisodes);
 
-        setEpisodes(fetchedEpisodes);
+        // 처음과 끝 인덱스 번호
+        const startIdx = (page - 1) * 20;
+        const lastIdx = (page - 1) * 20 + 20;
+
+        // 데이터 20개씩 넣기
+        const sliceEpisodes = episodesResponse.data.episodes.slice(
+          startIdx,
+          lastIdx
+        );
+
+        // 데이터 길이 가져오기
+        const episodeLength = episodesResponse.data.episodes.length;
+
+        // 데이터의 마지막 인덱스가 범위 안에 있으면 더보기 없애기
+        if (episodeLength - 1 <= lastIdx) {
+          setRemainRoad(false);
+        }
+        // console.log(episodeLength);
+        // console.log(startIdx);
+        // console.log(lastIdx);
+        // console.log(fetchedEpisodes.slice(0, 7));
+
+        setEpisodes((prevEpisodes) => [
+          ...prevEpisodes,
+          ...sliceEpisodes.filter(
+            (newEpisode: EpisodesType) =>
+              !prevEpisodes.some(
+                (existingEpisode) => existingEpisode.id === newEpisode.id
+              )
+          ),
+        ]);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchEpisodes();
-  }, [seasonsInfo]);
+  }, [seasonsInfo, page]);
+
+  /* 시즌선택 함수 */
+  const selectContentSeason = (selectedSeasonId: number) => {
+    const selectedSeason = contentInfo?.seasons.find(
+      (season: SeasonsType) => season.season_number === selectedSeasonId
+    );
+    setSeasonsInfo(selectedSeason);
+  };
 
   /* 별점 표시 */
   const renderStars = (rating: number) => {
@@ -147,6 +187,15 @@ export default function DetailEpisode() {
 
     return stars;
   };
+
+  // console.log(contentInfo);
+  // console.log(seasonsInfo);
+  console.log(episodes);
+
+  // 페이지 로드 시 맨 위로 스크롤
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div
@@ -199,20 +248,53 @@ export default function DetailEpisode() {
       </div>
 
       {/* 세부 정보 */}
-      <div
-        className="w-full h-full flex flex-col gap-[20px] px-[55px]
-       transition-all duration-500 ease-out overflow-hidden group-hover:max-h-[300px]"
-      >
-        {/* 상영일자 & 에피소드 갯수 */}
-        <div className="flex flex-col justify-center items-start gap-[10px]">
-          {/* 상영일자 */}
-          <div className="text-[0.875rem] text-gray01">
-            공개 : {seasonsInfo?.air_date}
+      <div className="w-full h-full flex flex-col  gap-[20px] px-[55px]">
+        <div className="flex justify-between items-start">
+          {/* 상영일자 & 에피소드 갯수 */}
+          <div className="flex flex-col justify-center items-start gap-[10px]">
+            {/* 상영일자 */}
+            <div className="text-[0.875rem] text-gray01">
+              공개 : {seasonsInfo?.air_date}
+            </div>
+
+            {/* 에피소드 갯수 */}
+            <div className="text-[0.875rem] text-gray01">
+              에피소드 {seasonsInfo?.episode_count}개
+            </div>
           </div>
 
-          {/* 에피소드 갯수 */}
-          <div className="text-[0.875rem] text-gray01">
-            에피소드 {seasonsInfo?.episode_count}개
+          {/* 시즌 선택 토글 */}
+          <div className="w-[8.125rem] flex flex-col gap-[10px]">
+            <div
+              className="text-[0.875rem] text-white flex justify-between
+              p-[0.625rem] bg-gray02 rounded-[0.3125rem] cursor-pointer"
+              onClick={() => setSelectSeason((prev) => !prev)}
+            >
+              시즌 {seasonsInfo?.season_number}
+              <img
+                src={!selectSeason ? `${seasonSelect}` : `${seasonSelectDone}`}
+                alt="season select"
+              />
+            </div>
+            {selectSeason &&
+              contentInfo?.seasons.map((season) => (
+                <div
+                  key={season.id}
+                  className="flex justify-between items-baseline gap-[0.625rem] 
+                  px-[0.3125rem] group cursor-pointer"
+                  onClick={() => {
+                    selectContentSeason(season.season_number);
+                    setSelectSeason((prev) => !prev);
+                  }}
+                >
+                  <div className="text-[0.8125rem] text-gray02 group-hover:text-gray01">
+                    시즌{season.season_number}
+                  </div>
+                  <div className=" text-[0.625rem] text-gray02 group-hover:text-gray01">
+                    에피소드 {season.episode_count}개
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -220,50 +302,96 @@ export default function DetailEpisode() {
         {episodes.map((episode) => (
           <div
             key={episode.id}
-            className="relative flex justify-between items-center
-            bg-gradient-to-r to-balck from-gray01/20 rounded-[0.3125rem]
-            p-[0.3125rem]"
+            className="w-full h-full flex justify-between items-center
+            bg-gradient-to-r to-balck from-gray01/20 
+            rounded-[0.3125rem] p-[0.3125rem] gap-[0.625rem]
+            overflow-hidden
+            group"
           >
             {/* 에피소드 넘버 */}
             <div className="w-[3.125rem] text-[2.5rem] text-center text-main/40">
               {episode.episode_number}
             </div>
 
-            {/* 스틸컷 */}
             <div
-              className="w-[6.25rem] h-[4.375rem] bg-cover bg-center rounded-[0.3125rem]"
-              style={{
-                backgroundImage: `url(${IMAGE_BASE_URL}original${episode.still_path})`,
-              }}
-            ></div>
+              className="w-[19.375rem] flex justify-between group-hover:flex-col
+            group-hover:gap-[0.625rem]"
+            >
+              {/* 스틸컷 */}
+              <div
+                className="w-[6.25rem] h-[4.375rem] bg-cover bg-center 
+                rounded-[0.3125rem] 
+                group-hover:w-[19.375rem] group-hover:h-[7.5rem]"
+                style={{
+                  backgroundImage: `url(${
+                    episode.still_path
+                      ? `${IMAGE_BASE_URL}original${episode.still_path}`
+                      : `${IMAGE_BASE_URL}original${contentInfo?.poster_path}`
+                  })`,
+                }}
+              ></div>
 
-            {/* 세부 내용 */}
-            <div className="w-[12.5rem] h-[4.375rem] flex flex-col justify-between">
-              {/* 제목 및 런타임 */}
-              <div className="flex justify-start items-baseline gap-[0.625rem]">
-                {/* 제목 */}
-                <div className="text-[0.9375rem] text-white">
-                  {episode.name}
+              {/* 세부 내용 */}
+              <div
+                className="w-[12rem] h-[4.375rem] flex flex-col justify-between
+              overflow-hidden gap-[0.3125rem]
+              group-hover:w-[19.375rem] group-hover:h-full"
+              >
+                {/* 제목 및 런타임 */}
+                <div className="flex flex-col justify-between items-start gap-[0.625rem]">
+                  {/* 제목 */}
+                  <div
+                    className="text-[0.9375rem] text-white 
+                overflow-hidden text-ellipsis line-clamp-1"
+                  >
+                    {episode.name}
+                  </div>
+
+                  <div className="w-full flex justify-between">
+                    {/* 런타임 */}
+                    <div
+                      className="text-[0.6875rem] text-gray01
+                    group-hover:text-[0.875rem]"
+                    >
+                      {episode.runtime ? episode.runtime : "- "}분
+                    </div>
+
+                    {/* 평점 */}
+                    <div
+                      className="text-[0.6875rem] text-gray01
+                    group-hover:text-[0.875rem]"
+                    >
+                      {episode.vote_average.toFixed(1)}점
+                    </div>
+                  </div>
                 </div>
 
-                {/* 런타임 */}
-                <div className="text-[0.6875rem] text-gray01">
-                  {episode.runtime}분
+                {/* 요약 내용 */}
+                <div
+                  className="w-[12rem] h-[2.75rem] leading-4 
+                overflow-hidden text-ellipsis line-clamp-2 text-[0.6875rem] 
+                text-gray01 group-hover:line-clamp-none
+                group-hover:w-[19.375rem] group-hover:h-full"
+                >
+                  {episode.overview}
                 </div>
-
-                {/* 런타임 */}
-                <div className="text-[0.6875rem] text-gray01">
-                  {episode.vote_average.toFixed(1)}점
-                </div>
-              </div>
-
-              {/* 요약 내용 */}
-              <div className="w-[12.5rem] h-[2.75rem] leading-4 overflow-hidden text-ellipsis line-clamp-3 text-[0.6875rem] text-gray01">
-                {episode.overview}
               </div>
             </div>
           </div>
         ))}
+
+        {/* 더보기 */}
+        {remainRoad && (
+          <div
+            className="w-full text-center text-gray02 font-bold cursor-pointer
+          hover:text-gray01"
+            onClick={() => {
+              setPage((prev) => (prev += 1));
+            }}
+          >
+            더보기
+          </div>
+        )}
       </div>
     </div>
   );

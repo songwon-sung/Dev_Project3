@@ -191,6 +191,11 @@ export default function DetailContent() {
     return stars;
   };
 
+  // 페이지 로드 시 맨 위로 스크롤
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <div
       className="w-full min-h-screen h-full mb-[60px] 
