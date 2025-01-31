@@ -53,6 +53,20 @@ interface VideosType {
   site: string;
 }
 
+interface ProvidersType {
+  link: string;
+  flatrate?: {
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+  }[];
+  buy?: {
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+  }[];
+}
+
 export default function DetailContent() {
   const location = useLocation();
   const media = location.pathname.includes("tv") ? "tv" : "movie";
@@ -66,30 +80,37 @@ export default function DetailContent() {
     posters: [],
   });
   const [videos, setVideos] = useState<VideosType[]>([]);
+  const [providers, setProviders] = useState<ProvidersType>();
+  const [pages, setPages] = useState<number>(1);
   // console.log(contentId);
 
   /* 컨텐츠 정보 불러오기 */
   useEffect(() => {
     const fetchContent = async () => {
       const contentDetails = `${media}/${contentId}?api_key=${API_KEY}&language=ko-kr`;
+      const watchProviders = `${media}/${contentId}/watch/providers?api_key=${API_KEY}`;
 
       try {
-        const [detailsResponse] = await Promise.all([
+        const [detailsResponse, providerResponse] = await Promise.all([
           axios.get(`${API_URL}${contentDetails}`),
+          axios.get(`${API_URL}${watchProviders}`),
         ]);
         // 데이터 가져오기
         const fetchedContents: ContentType = detailsResponse.data;
+        const fetchedProviders: ProvidersType =
+          providerResponse.data.results.KR;
 
         setContentInfo(fetchedContents);
         setSeasonsInfo(fetchedContents.seasons || []);
+        setProviders(fetchedProviders);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchContent();
   }, [contentId]);
-  console.log(contentInfo);
-  // console.log(contentInfo?.networks[0].name);
+  // console.log(contentInfo);
+  // console.log(providers);
   // console.log(seasonsInfo);
 
   /* 배우 정보 불러오기 */
@@ -103,19 +124,31 @@ export default function DetailContent() {
         const [actorsResponse] = await Promise.all([
           axios.get(`${API_URL}${actorsList}`),
         ]);
+        const startIdx = (pages - 1) * 8;
+        const lastIdx = (pages - 1) * 8 + 8;
         // 배우 데이터 10개 가져오기
         const fetchedActors: ActorType[] = actorsResponse.data.cast.slice(
-          0,
-          10
+          startIdx,
+          lastIdx
         );
 
-        setActors(fetchedActors);
+        // pages가 1이 되면 초기화
+        if (pages === 1) {
+          setActors(fetchedActors);
+        } else {
+          setActors((prev) => [
+            ...prev,
+            ...fetchedActors.filter(
+              (actor) => !prev.some((prev) => prev.id === actor.id)
+            ),
+          ]);
+        }
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchActors();
-  }, [contentId]);
+  }, [contentId, pages]);
   // console.log(actors);
 
   /* 컨텐츠 이미지 & 영상 정보 불러오기 */
@@ -418,6 +451,31 @@ export default function DetailContent() {
         {/* 구분선 */}
         <div className="w-full border-[1px] border-gray02"></div>
 
+        {/* 시청 제공 */}
+        <div className="text-[1.125rem] text-white font-bold">시청 제공</div>
+
+        <div>
+          {(providers?.flatrate ?? providers?.buy)?.map((provider) => (
+            <div
+              key={provider.provider_id}
+              className="flex justify-start items-center gap-[10px]"
+            >
+              <div
+                className="w-[50px] h-[50px] bg-cover bg-center rounded-[0.3125rem]"
+                style={{
+                  backgroundImage: `url(${IMAGE_BASE_URL}original${provider.logo_path})`,
+                }}
+              ></div>
+              <div className="w-[310px] flex flex-col overflow-hidden whitespace-wrap">
+                <div className="text-white">{provider.provider_name}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 구분선 */}
+        <div className="w-full border-[1px] border-gray02"></div>
+
         {/* 출연진 */}
         <div className="text-[1.125rem] text-white font-bold">출연진</div>
         <div className="flex flex-wrap justify-start gap-y-[20px] gap-x-[10px]">
@@ -444,6 +502,28 @@ export default function DetailContent() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="flex flex-col justify-between gap-[10px]">
+          <div
+            className="text-[0.875rem] text-gray02 text-center 
+            font-bold cursor-pointer hover:text-gray01"
+            onClick={() => {
+              setPages((prev) => (prev += 1));
+            }}
+          >
+            더보기
+          </div>
+          {pages === 1 || (
+            <div
+              className="text-[0.875rem] text-gray02 text-center 
+            font-bold cursor-pointer hover:text-gray01"
+              onClick={() => {
+                setPages(1);
+              }}
+            >
+              접기
+            </div>
+          )}
         </div>
 
         {/* 구분선 */}
