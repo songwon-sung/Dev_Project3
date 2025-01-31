@@ -88,7 +88,7 @@ export default function DetailContent() {
     };
     fetchContent();
   }, [contentId]);
-  // console.log(contentInfo);
+  console.log(contentInfo);
   // console.log(contentInfo?.networks[0].name);
   // console.log(seasonsInfo);
 

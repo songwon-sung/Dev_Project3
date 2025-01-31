@@ -190,7 +190,7 @@ export default function DetailEpisode() {
 
   // console.log(contentInfo);
   // console.log(seasonsInfo);
-  console.log(episodes);
+  // console.log(episodes);
 
   // 페이지 로드 시 맨 위로 스크롤
   useEffect(() => {
@@ -348,6 +348,14 @@ export default function DetailEpisode() {
                   </div>
 
                   <div className="w-full flex justify-between">
+                    {/* 방영일자 */}
+                    <div
+                      className="text-[0.6875rem] text-gray01
+                    group-hover:text-[0.875rem]"
+                    >
+                      {episode.air_date ? episode.air_date : "- "}
+                    </div>
+
                     {/* 런타임 */}
                     <div
                       className="text-[0.6875rem] text-gray01
