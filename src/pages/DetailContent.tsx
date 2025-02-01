@@ -55,16 +55,14 @@ interface VideosType {
 
 interface ProvidersType {
   link: string;
-  flatrate?: {
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-  }[];
-  buy?: {
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-  }[];
+  flatrate?: ProviderInfoType[];
+  buy?: ProviderInfoType[];
+}
+
+interface ProviderInfoType {
+  logo_path: string;
+  provider_id?: number;
+  provider_name: string;
 }
 
 export default function DetailContent() {
@@ -80,7 +78,7 @@ export default function DetailContent() {
     posters: [],
   });
   const [videos, setVideos] = useState<VideosType[]>([]);
-  const [providers, setProviders] = useState<ProvidersType>();
+  const [providers, setProviders] = useState<string[][]>([]);
   const [pages, setPages] = useState<number>(1);
   // console.log(contentId);
 
@@ -97,12 +95,71 @@ export default function DetailContent() {
         ]);
         // 데이터 가져오기
         const fetchedContents: ContentType = detailsResponse.data;
-        const fetchedProviders: ProvidersType =
-          providerResponse.data.results.KR;
+
+        // 시청 제공 데이터 가져오기
+        const fetchedProviders: ProvidersType = providerResponse.data.results;
+
+        // movie 시청 제공 데이터(id)
+        let providersInfo: string[][] = [];
+        if (media === "movie") {
+          const countryProviders = Object.values(fetchedProviders).map(
+            (result) =>
+              result.buy
+                ? result.buy
+                : result.rent
+                ? result.rent
+                : result.free
+                ? result.free
+                : result.flatrate
+                ? result.flatrate
+                : result.ads
+          );
+          const buysProviders = countryProviders.map((result) =>
+            result.map(
+              (value: {
+                provider_name: string;
+                logo_path: string;
+                provider_id: number;
+              }) => [value.provider_name, value.logo_path, value.provider_id]
+            )
+          );
+          buysProviders.map((arr) => providersInfo.push(...arr));
+        }
+
+        // tv 시청 제공 데이터(id)
+        if (media === "tv") {
+          const countryProviders = Object.values(fetchedProviders).map(
+            (result) =>
+              result.buy
+                ? result.buy
+                : result.rent
+                ? result.rent
+                : result.free
+                ? result.free
+                : result.flatrate
+                ? result.flatrate
+                : result.ads
+          );
+          const buysProviders = countryProviders.map((result) =>
+            result.map(
+              (value: {
+                provider_name: string;
+                logo_path: string;
+                provider_id: number;
+              }) => [value.provider_name, value.logo_path, value.provider_id]
+            )
+          );
+          buysProviders.map((arr) => providersInfo.push(...arr));
+        }
+
+        const providersNumber = Array.from(
+          new Map(providersInfo.map((item) => [item.join(), item])).values()
+        );
+        console.log(providersNumber);
 
         setContentInfo(fetchedContents);
         setSeasonsInfo(fetchedContents.seasons || []);
-        setProviders(fetchedProviders);
+        setProviders(providersNumber);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -359,7 +416,8 @@ export default function DetailContent() {
             <Link
               to={`/detail/${media}/${contentId}/${season.id}`}
               key={season.id}
-              className="group flex gap-[20px] bg-black/80 border-[1px] border-gray02 rounded-[5px]"
+              className="group flex gap-[20px] bg-black/80 border-[1px] 
+              border-gray02 rounded-[5px]"
             >
               {/* 이미지 */}
               <div
@@ -375,11 +433,16 @@ export default function DetailContent() {
 
               {/* 텍스트 박스 */}
               <div
-                className="flex flex-col justify-between py-[15px] gap-[10px] overflow-hidden text-ellipsis 
-              whitespace-nowrap"
+                className="w-[12.75rem] flex flex-col justify-between py-[15px] 
+                gap-[10px] overflow-hidden text-ellipsis whitespace-nowrap
+                group-hover:h-full group-hover:flex-wrap group-hover:whitespace-wrap"
               >
                 {/* 제목 */}
-                <div className="text-[1.25rem] font-bold">
+                <div
+                  className="text-[1.25rem] font-bold group-hover:text-wrap
+                  group-hover:h-full group-hover:flex-wrap
+                  overflow-hidden text-ellipsis whitespace-wrap"
+                >
                   {contentInfo?.name} {season.name}
                 </div>
 
@@ -399,14 +462,14 @@ export default function DetailContent() {
                 {/* 마우스오버 시 보이는 정보 */}
                 <div
                   className="group-hover:w-full group-hover:h-full w-0 h-0
-              bg-black/80 opacity-0 group-hover:opacity-100 
-              flex flex-col justify-start items-center gap-[10px] 
-              rounded-[5px]"
+                          bg-black/80 opacity-0 group-hover:opacity-100 
+                            flex flex-col justify-start items-center gap-[10px] 
+                            rounded-[5px]"
                 >
                   {/* 장르 */}
                   <div
                     className="w-full overflow-hidden text-ellipsis 
-              flex-wrap flex gap-[5px]"
+                            flex-wrap flex gap-[5px]"
                   >
                     {contentInfo?.genres.map((genre) => (
                       <div
@@ -455,42 +518,54 @@ export default function DetailContent() {
         <div className="text-[1.125rem] text-white font-bold">시청 제공</div>
 
         <div className="flex flex-col gap-[10px]">
-          {(providers?.flatrate ?? providers?.buy)?.map((provider) => (
-            <div
-              key={provider.provider_id}
-              className="flex justify-start items-center gap-[10px]"
-            >
+          {/* movie */}
+          {media === "movie" &&
+            providers?.map((provider) => (
               <div
-                className="w-[50px] h-[50px] bg-contain bg-center bg-no-repeat 
-                rounded-[0.3125rem] border-[1px] border-gray02"
-                style={{
-                  backgroundImage: `url(${IMAGE_BASE_URL}original${provider.logo_path})`,
-                }}
-              ></div>
-              <div className="w-[310px] flex flex-col overflow-hidden whitespace-wrap">
-                <div className="text-white">{provider.provider_name}</div>
-              </div>
-            </div>
-          ))}
-          {media === "tv" &&
-            contentInfo?.networks?.map((network) => (
-              <div
-                key={network.id}
+                key={provider[3]}
                 className="flex justify-start items-center gap-[10px]"
               >
+                {/* 로고 이미지 */}
                 <div
-                  className="w-[50px] h-[50px] bg-contain bg-center bg-no-repeat 
+                  className="w-[40px] h-[40px] bg-contain bg-center bg-no-repeat 
+                rounded-[0.3125rem] border-[1px] border-gray02"
+                  style={{
+                    backgroundImage: `url(${IMAGE_BASE_URL}original${provider[1]})`,
+                  }}
+                ></div>
+                {/* 제공사 이름 */}
+                <div className="w-[310px] flex flex-col overflow-hidden whitespace-wrap">
+                  <div className="text-white text-[0.875rem]">
+                    {provider[0]}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+          {/* tv */}
+          {media === "tv" &&
+            providers?.map((provider) => (
+              <div
+                key={provider[3]}
+                className="flex justify-start items-center gap-[10px]"
+              >
+                {/* 로고 이미지 */}
+                <div
+                  className="w-[40px] h-[40px] bg-contain bg-center bg-no-repeat 
                   rounded-[0.3125rem] border-[1px] border-gray02"
                   style={{
                     backgroundImage: `url(${
-                      network.logo_path
-                        ? `${IMAGE_BASE_URL}original${network.logo_path}`
+                      provider[1]
+                        ? `${IMAGE_BASE_URL}original${provider[1]}`
                         : noImage
                     })`,
                   }}
                 ></div>
+                {/* 제공사 이름 */}
                 <div className="w-[310px] flex flex-col overflow-hidden whitespace-wrap">
-                  <div className="text-white">{network.name}</div>
+                  <div className="text-white text-[0.875rem]">
+                    {provider[0]}
+                  </div>
                 </div>
               </div>
             ))}
