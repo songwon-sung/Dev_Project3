@@ -56,9 +56,10 @@ export default function DetailEpisode() {
   const [contentInfo, setContentInfo] = useState<ContentType>();
   const [seasonsInfo, setSeasonsInfo] = useState<SeasonsType>();
   const [episodes, setEpisodes] = useState<EpisodesType[]>([]);
-  const [selectSeason, setSelectSeason] = useState(false);
-  const [page, setPage] = useState<number>(1);
-  const [remainRoad, setRemainRoad] = useState(true);
+  const [selectSeason, setSelectSeason] = useState(false); // 시즌토글선택유무
+  const [page, setPage] = useState<number>(1); // 데이터 페이지
+  const [remainRoad, setRemainRoad] = useState(true); // 남은데이터유무
+  const [prevSeason, setPrevSeason] = useState<string>(""); // 이전시즌이름
   // console.log(seasonsInfo);
 
   /* 컨텐츠 정보 불러오기 */
@@ -94,6 +95,14 @@ export default function DetailEpisode() {
         const [episodesResponse] = await Promise.all([
           axios.get(`${API_URL}${seasonDetails}`),
         ]);
+        // console.log(seasonsInfo.name);
+        // console.log(prevSeason);
+        // console.log(page);
+
+        // 이전 시즌이름과 현재 시즌이름이 같지 않으면 page 1
+        {
+          seasonsInfo.name !== prevSeason && setPage(1);
+        }
 
         // 처음과 끝 인덱스 번호
         const startIdx = (page - 1) * 20;
@@ -111,21 +120,32 @@ export default function DetailEpisode() {
         // 데이터의 마지막 인덱스가 범위 안에 있으면 더보기 없애기
         if (episodeLength - 1 <= lastIdx) {
           setRemainRoad(false);
+        } else {
+          setRemainRoad(true);
         }
+
         // console.log(episodeLength);
         // console.log(startIdx);
         // console.log(lastIdx);
+        // console.log(remainRoad);
         // console.log(fetchedEpisodes.slice(0, 7));
 
-        setEpisodes((prevEpisodes) => [
-          ...prevEpisodes,
-          ...sliceEpisodes.filter(
-            (newEpisode: EpisodesType) =>
-              !prevEpisodes.some(
-                (existingEpisode) => existingEpisode.id === newEpisode.id
-              )
-          ),
-        ]);
+        // 시작인덱스가 0이면 불러온 에피소드 데이터 바로 집어넣기
+        if (startIdx === 0) {
+          setEpisodes(sliceEpisodes);
+        } else {
+          // 시작인덱스가 0이 아니면 이전 에피소드에 추가하기
+          setEpisodes((prevEpisodes) => [
+            ...prevEpisodes,
+            ...sliceEpisodes.filter(
+              (newEpisode: EpisodesType) =>
+                !prevEpisodes.some(
+                  (existingEpisode) => existingEpisode.id === newEpisode.id
+                )
+            ),
+          ]);
+        }
+        setPrevSeason(seasonsInfo.name);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -270,7 +290,7 @@ export default function DetailEpisode() {
               p-[0.625rem] bg-gray02 rounded-[0.3125rem] cursor-pointer"
               onClick={() => setSelectSeason((prev) => !prev)}
             >
-              시즌 {seasonsInfo?.season_number}
+              {seasonsInfo?.name}
               <img
                 src={!selectSeason ? `${seasonSelect}` : `${seasonSelectDone}`}
                 alt="season select"
@@ -288,7 +308,7 @@ export default function DetailEpisode() {
                   }}
                 >
                   <div className="text-[0.8125rem] text-gray02 group-hover:text-gray01">
-                    시즌{season.season_number}
+                    {season.name}
                   </div>
                   <div className=" text-[0.625rem] text-gray02 group-hover:text-gray01">
                     에피소드 {season.episode_count}개
