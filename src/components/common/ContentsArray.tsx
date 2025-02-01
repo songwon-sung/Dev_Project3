@@ -145,7 +145,8 @@ export default function ContentsArray(props: ContentsArrayProps) {
             {/* 컨텐츠 이미지 */}
             <Link
               to={`/detail/${props.media}/${content.id}`}
-              className="w-[6.875rem] h-[8.625rem] bg-cover border-[0.0625rem] border-gray02 rounded-[5px]"
+              className="w-[6.875rem] h-[8.625rem] bg-cover border-[0.0625rem] 
+              border-gray02 rounded-[5px]"
               style={{
                 backgroundImage: `url(${
                   content.poster_path

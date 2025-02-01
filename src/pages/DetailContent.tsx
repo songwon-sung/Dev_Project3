@@ -454,14 +454,15 @@ export default function DetailContent() {
         {/* 시청 제공 */}
         <div className="text-[1.125rem] text-white font-bold">시청 제공</div>
 
-        <div>
+        <div className="flex flex-col gap-[10px]">
           {(providers?.flatrate ?? providers?.buy)?.map((provider) => (
             <div
               key={provider.provider_id}
               className="flex justify-start items-center gap-[10px]"
             >
               <div
-                className="w-[50px] h-[50px] bg-cover bg-center rounded-[0.3125rem]"
+                className="w-[50px] h-[50px] bg-contain bg-center bg-no-repeat 
+                rounded-[0.3125rem] border-[1px] border-gray02"
                 style={{
                   backgroundImage: `url(${IMAGE_BASE_URL}original${provider.logo_path})`,
                 }}
@@ -471,6 +472,28 @@ export default function DetailContent() {
               </div>
             </div>
           ))}
+          {media === "tv" &&
+            contentInfo?.networks?.map((network) => (
+              <div
+                key={network.id}
+                className="flex justify-start items-center gap-[10px]"
+              >
+                <div
+                  className="w-[50px] h-[50px] bg-contain bg-center bg-no-repeat 
+                  rounded-[0.3125rem] border-[1px] border-gray02"
+                  style={{
+                    backgroundImage: `url(${
+                      network.logo_path
+                        ? `${IMAGE_BASE_URL}original${network.logo_path}`
+                        : noImage
+                    })`,
+                  }}
+                ></div>
+                <div className="w-[310px] flex flex-col overflow-hidden whitespace-wrap">
+                  <div className="text-white">{network.name}</div>
+                </div>
+              </div>
+            ))}
         </div>
 
         {/* 구분선 */}
