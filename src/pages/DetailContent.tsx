@@ -80,6 +80,7 @@ export default function DetailContent() {
   const [videos, setVideos] = useState<VideosType[]>([]);
   const [providers, setProviders] = useState<string[][]>([]);
   const [pages, setPages] = useState<number>(1);
+  const [providerPages, setProvidersPages] = useState<number>(1);
   // console.log(contentId);
 
   /* 컨텐츠 정보 불러오기 */
@@ -157,15 +158,32 @@ export default function DetailContent() {
         );
         console.log(providersNumber);
 
+        const startIdx = (providerPages - 1) * 5;
+        const lastIdx = (providerPages - 1) * 5 + 5;
+        // 배우 데이터 5개 가져오기
+        const fetchedProvidersNumber = providersNumber.slice(startIdx, lastIdx);
+
+        // pages가 1이 되면 초기화
+        if (providerPages === 1) {
+          setProviders(fetchedProvidersNumber);
+        } else {
+          setProviders((prev) => [
+            ...prev,
+            ...fetchedProvidersNumber.filter(
+              (providersNumber) =>
+                !prev.some((prev) => prev[0] === providersNumber[0])
+            ),
+          ]);
+        }
+
         setContentInfo(fetchedContents);
         setSeasonsInfo(fetchedContents.seasons || []);
-        setProviders(providersNumber);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchContent();
-  }, [contentId]);
+  }, [contentId, providerPages]);
   // console.log(contentInfo);
   // console.log(providers);
   // console.log(seasonsInfo);
@@ -569,6 +587,30 @@ export default function DetailContent() {
                 </div>
               </div>
             ))}
+
+          {/* 더보기 & 접기 */}
+          <div className="flex flex-col justify-between gap-[10px]">
+            <div
+              className="text-[0.875rem] text-gray02 text-center 
+            font-bold cursor-pointer hover:text-gray01"
+              onClick={() => {
+                setProvidersPages((prev) => (prev += 1));
+              }}
+            >
+              더보기
+            </div>
+            {providerPages === 1 || (
+              <div
+                className="text-[0.875rem] text-gray02 text-center 
+            font-bold cursor-pointer hover:text-gray01"
+                onClick={() => {
+                  setProvidersPages(1);
+                }}
+              >
+                접기
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 구분선 */}
