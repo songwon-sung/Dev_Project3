@@ -156,7 +156,6 @@ export default function DetailContent() {
         const providersNumber = Array.from(
           new Map(providersInfo.map((item) => [item.join(), item])).values()
         );
-        console.log(providersNumber);
 
         const startIdx = (providerPages - 1) * 5;
         const lastIdx = (providerPages - 1) * 5 + 5;
@@ -185,7 +184,7 @@ export default function DetailContent() {
     fetchContent();
   }, [contentId, providerPages]);
   // console.log(contentInfo);
-  // console.log(providers);
+  console.log(providers);
   // console.log(seasonsInfo);
 
   /* 배우 정보 불러오기 */
@@ -564,7 +563,7 @@ export default function DetailContent() {
           {media === "tv" &&
             providers?.map((provider) => (
               <div
-                key={provider[3]}
+                key={provider[2]}
                 className="flex justify-start items-center gap-[10px]"
               >
                 {/* 로고 이미지 */}
