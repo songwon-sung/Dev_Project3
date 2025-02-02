@@ -286,11 +286,14 @@ export default function DetailEpisode() {
           {/* 시즌 선택 토글 */}
           <div className="w-[8.125rem] flex flex-col gap-[10px]">
             <div
-              className="text-[0.875rem] text-white flex justify-between
+              className="flex justify-between
               p-[0.625rem] bg-gray02 rounded-[0.3125rem] cursor-pointer"
               onClick={() => setSelectSeason((prev) => !prev)}
             >
-              {seasonsInfo?.name}
+              <div className="text-[0.875rem] text-white w-[5.625rem]">
+                {seasonsInfo?.name}
+              </div>
+
               <img
                 src={!selectSeason ? `${seasonSelect}` : `${seasonSelectDone}`}
                 alt="season select"
@@ -300,17 +303,25 @@ export default function DetailEpisode() {
               contentInfo?.seasons.map((season) => (
                 <div
                   key={season.id}
-                  className="flex justify-between items-baseline gap-[0.625rem] 
+                  className="flex justify-between items-start
                   px-[0.3125rem] group cursor-pointer"
                   onClick={() => {
                     selectContentSeason(season.season_number);
                     setSelectSeason((prev) => !prev);
                   }}
                 >
-                  <div className="text-[0.8125rem] text-gray02 group-hover:text-gray01">
+                  <div
+                    className="text-[0.8125rem] text-gray02 w-[80px] h-[1.625rem]
+                    group-hover:text-gray01 overflow-hidden 
+                    text-ellipsis whitespace-wrap
+                    group-hover:h-full"
+                  >
                     {season.name}
                   </div>
-                  <div className=" text-[0.625rem] text-gray02 group-hover:text-gray01">
+                  <div
+                    className="text-[0.625rem] text-gray02 text-right
+                  group-hover:text-gray01 w-[2.5rem] text-wrap"
+                  >
                     에피소드 {season.episode_count}개
                   </div>
                 </div>
@@ -329,7 +340,7 @@ export default function DetailEpisode() {
             group"
           >
             {/* 에피소드 넘버 */}
-            <div className="w-[3.125rem] text-[2.5rem] text-center text-main/40">
+            <div className="w-[3.125rem] text-[1.875rem] text-center text-main/40">
               {episode.episode_number}
             </div>
 
