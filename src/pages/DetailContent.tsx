@@ -522,7 +522,7 @@ export default function DetailContent() {
           {media === "movie" &&
             providers?.map((provider) => (
               <div
-                key={provider[3]}
+                key={provider[2]}
                 className="flex justify-start items-center gap-[10px]"
               >
                 {/* 로고 이미지 */}
