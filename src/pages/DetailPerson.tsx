@@ -93,7 +93,7 @@ export default function DetailPerson() {
     };
     fetchPersonInfo();
   }, [personId]);
-  // console.log(movieCredits);
+  console.log(tvCredits);
   // console.log(isFirst);
   // console.log(isLast);
 
@@ -112,6 +112,11 @@ export default function DetailPerson() {
     setIsFirst(currentIndex === 0);
     setIsLast(currentIndex === personImg.length - 1);
   }, [currentIndex, personImg.length]);
+
+  // 페이지 로드 시 맨 위로 스크롤
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div
@@ -141,7 +146,7 @@ export default function DetailPerson() {
             <div className="text-[0.875rem]">
               생년월일 :{" "}
               {personData?.birthday
-                .replace("-", "년 ")
+                ?.replace("-", "년 ")
                 .replace("-", "월 ")
                 .padEnd(13, "일")}
             </div>
@@ -184,10 +189,10 @@ export default function DetailPerson() {
           className="flex justify-start overflow-hidden flex-wrap
           gap-x-[1.25rem] gap-y-[0.625rem]"
         >
-          {tvCredits.slice(0, contTvPages * 6).map((data) => (
+          {tvCredits.slice(0, contTvPages * 6).map((data, idx) => (
             <Link
               to={`/detail/tv/${data.id}`}
-              key={data.id}
+              key={data.id + idx}
               className="w-[6.875rem] flex flex-col justify-between items-center
               flex-wrap gap-[0.625rem] group"
             >
