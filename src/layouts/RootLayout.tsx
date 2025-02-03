@@ -35,7 +35,7 @@ export default function RootLayout() {
                   flex flex-col justify-between items-center"
       >
         {/* 레이아웃 */}
-        <div className="w-[30rem] bg-black01 flex flex-col justify-between">
+        <div className="w-[30rem] min-h-screen bg-black01 flex flex-col justify-between">
           <Header />
           <Outlet />
           <Navigator />

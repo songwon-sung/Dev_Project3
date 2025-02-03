@@ -168,6 +168,7 @@ export default function Content(props: ContentsProps) {
     }
   };
 
+  /* 스크롤 이벤트 */
   useEffect(() => {
     // 스크롤 이벤트 리스너 추가
     if (scrollContainerRef.current) {

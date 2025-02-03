@@ -7,6 +7,7 @@ import SearchPage from "./pages/SearchPage";
 import DetailContent from "./pages/DetailContent";
 import DetailSubject from "./pages/DetailSubject";
 import DetailEpisode from "./pages/DetailEpisode";
+import DetailPerson from "./pages/DetailPerson";
 
 export default function App() {
   return (
@@ -27,6 +28,10 @@ export default function App() {
 
           {/* 컨텐츠 카드 클릭 시 이동페이지 */}
           <Route path="/detail/:media/:id" element={<DetailContent />}></Route>
+
+          {/* 인물 클릭 시 이동페이지 */}
+          <Route path="/detail/person/:id" element={<DetailPerson />}></Route>
+
           {/* 세부 시즌 카드 클릭 시 이동페이지 */}
           <Route
             path="/detail/:media/:id/:season"
