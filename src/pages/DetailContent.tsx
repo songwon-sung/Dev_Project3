@@ -187,8 +187,8 @@ export default function DetailContent() {
     fetchContent();
   }, [contentId, providerPages]);
   // console.log(contentInfo);
-  console.log(providersNum);
-  console.log(providers);
+  // console.log(providersNum);
+  // console.log(providers);
   // console.log(seasonsInfo);
 
   /* 배우 정보 불러오기 */

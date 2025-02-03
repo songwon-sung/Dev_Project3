@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../api/axios";
 import axios from "axios";
+import scrollButtonLeft from "../assets/button/scrollButtonLeft.svg";
+import scrollButtonRight from "../assets/button/scrollButtonRight.svg";
 
 interface PersonDataType {
   birthday: string;
@@ -45,8 +47,12 @@ export default function DetailPerson() {
   const personId = location.pathname.replace("/detail/person/", ""); // id정보
   const [contTvPages, setContTvPages] = useState<number>(1);
   const [contMoviePages, setContMoviePages] = useState<number>(1);
+  const [isFirst, setIsFirst] = useState(true); // 첫 번째 이미지인지 체크
+  const [isLast, setIsLast] = useState(false); // 마지막 이미지인지 체크
+  const [currentIndex, setCurrentIndex] = useState(0); // 현재 이미지 인덱스
   // console.log(personId);
 
+  /* 인물 데이터 불러오기 */
   useEffect(() => {
     const fetchPersonInfo = async () => {
       // 인물 정보
@@ -87,7 +93,25 @@ export default function DetailPerson() {
     };
     fetchPersonInfo();
   }, [personId]);
-  console.log(movieCredits);
+  // console.log(movieCredits);
+  // console.log(isFirst);
+  // console.log(isLast);
+
+  /* 왼쪽 스크롤 버튼 함수 */
+  const scrollLeft = () => {
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  /* 오른쪽 스크롤 버튼 함수 */
+  const scrollRight = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  /* 이미지의 첫 번째/마지막 여부를 판단하는 함수 */
+  useEffect(() => {
+    setIsFirst(currentIndex === 0);
+    setIsLast(currentIndex === personImg.length - 1);
+  }, [currentIndex, personImg.length]);
 
   return (
     <div
@@ -291,7 +315,59 @@ export default function DetailPerson() {
         </div>
       </div>
 
+      {/* 구분선 */}
+      <div className="w-[23.75rem] border-[0.0625rem] border-gray02"></div>
+
       {/* 이미지 */}
+      <div className="text-[1.25rem] font-bold">이미지</div>
+      <div className="relative flex flex-row flex-nowrap overflow-hidden">
+        {/* 왼쪽 토글 버튼 */}
+        <div
+          className={`absolute z-10 w-[10rem] h-full pl-[0.625rem]
+      flex flex-col justify-center items-start ${isFirst ? "hidden" : ""}`}
+          style={{
+            backgroundImage: `linear-gradient(to left, #00000000, #000000)`,
+          }}
+        >
+          <img
+            src={scrollButtonLeft}
+            className="opacity-80 cursor-pointer"
+            onClick={scrollLeft}
+          />
+        </div>
+        {/* 오른쪽 토글 버튼 */}
+        <div
+          className={`absolute z-10 right-0 w-[10rem] h-full pr-[0.625rem]
+          flex flex-col justify-center items-end ${isLast ? "hidden" : ""}`}
+          style={{
+            backgroundImage: `linear-gradient(to right, #00000000, #000000)`,
+          }}
+        >
+          <img
+            src={scrollButtonRight}
+            className="opacity-80 cursor-pointer"
+            onClick={scrollRight}
+          />
+        </div>
+
+        <div
+          className="flex gap-[10px] pl-[110px]"
+          style={{
+            transform: `translateX(-${currentIndex * 160}px)`, // 이미지 간격을 기준으로 이동
+            transition: "transform 0.3s ease-in-out",
+          }}
+        >
+          {personImg.map((img) => (
+            <div
+              key={img.file_path}
+              className="w-[9.375rem] h-[12.5rem] bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${IMAGE_BASE_URL}original${img.file_path})`,
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
