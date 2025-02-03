@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MainImage from "../components/MainImage";
 import ContentsArray from "../components/common/ContentsArray";
 import arrowTop from "../assets/arrow/arrowTop.svg";
@@ -10,12 +10,6 @@ import { useLocation } from "react-router-dom";
 interface genresType {
   id: number;
   name: string;
-}
-
-interface ContentType {
-  id: number;
-  title: string;
-  genre_ids: number[];
 }
 
 export default function MoviePage() {

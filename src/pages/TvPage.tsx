@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MainImage from "../components/MainImage";
 import ContentsArray from "../components/common/ContentsArray";
 import arrowTop from "../assets/arrow/arrowTop.svg";

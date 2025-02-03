@@ -37,7 +37,6 @@ export default function SearchPage() {
   const [values, setValues] = useState<string>("");
   const [pages, setPages] = useState<number>(1);
   const [searchData, setSearchData] = useState<SearchDataType[]>([]);
-  const [genresMap, setGenresMap] = useState<Record<number, string>>({});
   // 검색이 제출되었는지 여부
   const [isSearchSubmitted, setIsSearchSubmitted] = useState<boolean>(false);
   const [debouncedValue, setDebouncedValue] = useState<string>(""); // 디바운싱된 값
@@ -105,8 +104,6 @@ export default function SearchPage() {
         );
 
         setSearchData(updatedSearchData);
-
-        setGenresMap(genreMap);
       } catch (error) {
         console.error("Error fetching contents:", error);
       }

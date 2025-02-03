@@ -1,4 +1,3 @@
-import React from "react";
 import MainImage from "../components/MainImage";
 import ContentsList from "../components/common/ContentsList";
 

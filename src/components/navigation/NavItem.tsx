@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 // Vite에서 이미지를 동적으로 불러오는 방식

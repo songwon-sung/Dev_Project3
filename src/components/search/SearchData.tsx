@@ -51,6 +51,7 @@ export default function SearchData(props: SearchDataProps) {
     // 입력값이 이전과 다르면 초기화
     if (prevProps !== props) {
       setSearchedData([]);
+      setPrevProps(props);
     }
 
     const fetchSearchData = async () => {
