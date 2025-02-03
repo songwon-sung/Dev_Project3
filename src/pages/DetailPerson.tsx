@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../api/axios";
 import axios from "axios";
 import scrollButtonLeft from "../assets/button/scrollButtonLeft.svg";
@@ -185,7 +185,8 @@ export default function DetailPerson() {
           gap-x-[1.25rem] gap-y-[0.625rem]"
         >
           {tvCredits.slice(0, contTvPages * 6).map((data) => (
-            <div
+            <Link
+              to={`/detail/tv/${data.id}`}
               key={data.id}
               className="w-[6.875rem] flex flex-col justify-between items-center
               flex-wrap gap-[0.625rem] group"
@@ -208,7 +209,7 @@ export default function DetailPerson() {
               >
                 {data.name}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -254,7 +255,8 @@ export default function DetailPerson() {
           gap-x-[1.25rem] gap-y-[0.625rem]"
         >
           {movieCredits.slice(0, contMoviePages * 6).map((data) => (
-            <div
+            <Link
+              to={`/detail/movie/${data.id}`}
               key={data.id}
               className="w-[6.875rem] flex flex-col justify-between items-start
               flex-wrap gap-[0.625rem] group"
@@ -277,7 +279,7 @@ export default function DetailPerson() {
               >
                 {data.title}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
