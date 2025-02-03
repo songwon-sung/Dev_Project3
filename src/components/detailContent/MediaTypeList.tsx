@@ -43,7 +43,7 @@ export default function MediaTypeList(props: MediaTypeListProps) {
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       if (selectedMedia === "poster") {
-        scrollContainerRef.current.scrollBy({ left: 150, behavior: "smooth" });
+        scrollContainerRef.current.scrollBy({ left: 380, behavior: "smooth" });
       } else {
         scrollContainerRef.current.scrollBy({ left: 380, behavior: "smooth" });
       }
@@ -141,7 +141,7 @@ export default function MediaTypeList(props: MediaTypeListProps) {
         {/* 오른쪽 토글 버튼 */}
         <div
           className={`absolute right-0 w-[6.25rem] h-full pr-[0.625rem]
-      flex flex-col justify-center items-end ${isLast ? "hidden" : ""}`}
+          flex flex-col justify-center items-end ${isLast ? "hidden" : ""}`}
           style={{
             backgroundImage: `linear-gradient(to right, #00000000, #000000)`,
           }}
