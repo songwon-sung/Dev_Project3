@@ -1,11 +1,5 @@
-import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import NavItem from "../navigation/NavItem";
-
-interface genresType {
-  id: number;
-  name: string;
-}
 
 export default function Navigator() {
   const location = useLocation();

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../api/axios";
 import axios from "axios";

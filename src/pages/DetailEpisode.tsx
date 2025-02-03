@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_KEY, API_URL, IMAGE_BASE_URL } from "../api/axios";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -8,7 +8,6 @@ import halfStar from "../assets/star/halfStar.svg";
 import emptyStar from "../assets/star/emptyStar.svg";
 import seasonSelect from "../assets/arrow/seasonSelect.svg";
 import seasonSelectDone from "../assets/arrow/seasonSelectDone.svg";
-import noImage from "../assets/noImage/noImage.svg";
 
 interface ContentType {
   backdrop_path: string;
