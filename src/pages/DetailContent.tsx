@@ -314,9 +314,13 @@ export default function DetailContent() {
     >
       {/* 메인 이미지 */}
       <div
-        className="w-[30rem] h-[16.875rem]"
+        className="w-[30rem] h-[16.875rem] bg-cover bg-center"
         style={{
-          backgroundImage: `url(${IMAGE_BASE_URL}original${contentInfo?.backdrop_path})`, // 첫 번째 배경 이미지 사용
+          backgroundImage: `url(${IMAGE_BASE_URL}original${
+            contentInfo?.backdrop_path
+              ? contentInfo?.backdrop_path
+              : contentInfo?.poster_path
+          })`, // 첫 번째 배경 이미지 사용
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
