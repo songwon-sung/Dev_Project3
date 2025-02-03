@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import MainImage from "../components/MainImage";
 import ContentsList from "../components/common/ContentsList";
 
 export default function Home() {
+  // 페이지 로드 시 맨 위로 스크롤
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="w-full min-h-100vh h-full mt-[3.625rem] mb-[3.75rem]">
       {/* 메인 이미지 */}
