@@ -85,7 +85,7 @@ export default function SearchData(props: SearchDataProps) {
 
   return (
     <div className="w-full h-full">
-      <div className="w-full h-full px-[2.1875rem] flex flex-col gap-[1.875rem]">
+      <div className="w-full h-full flex flex-col gap-[1.875rem]">
         {/* 콘텐츠 주제 */}
         <div className="text-white text-[1.875rem]">
           {props.media.toUpperCase()}

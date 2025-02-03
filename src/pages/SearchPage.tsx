@@ -122,14 +122,15 @@ export default function SearchPage() {
 
   return (
     <div
-      className="w-full min-h-100vh h-full mt-[3.625rem] mb-[5.75rem] p-[0.9375rem]
-    flex flex-col gap-[0.9375rem]"
+      className="w-full min-h-100vh h-full mt-[3.625rem] mb-[5.75rem] 
+      py-[0.9375rem] px-[3.4375rem]
+      flex flex-col gap-[0.9375rem]"
     >
       {/* 검색창 */}
       <div className="w-full h-full flex flex-col items-center gap-[0.625rem]">
         {/* 입력 필드 */}
         <form
-          className="w-full flex justify-between"
+          className="w-full flex justify-between gap-[0.625rem]"
           onSubmit={handleSearchSubmit}
         >
           <input
