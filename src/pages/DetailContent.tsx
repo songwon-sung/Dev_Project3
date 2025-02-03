@@ -78,7 +78,8 @@ export default function DetailContent() {
     posters: [],
   });
   const [videos, setVideos] = useState<VideosType[]>([]);
-  const [providers, setProviders] = useState<string[][]>([]);
+  const [providers, setProviders] = useState<string[][]>([]); // 현재 보여지는 제공사
+  const [providersNum, setProvidersNum] = useState<string[][]>([]); // 전체 제공사
   const [pages, setPages] = useState<number>(1);
   const [providerPages, setProvidersPages] = useState<number>(1);
   // console.log(contentId);
@@ -157,6 +158,8 @@ export default function DetailContent() {
           new Map(providersInfo.map((item) => [item.join(), item])).values()
         );
 
+        setProvidersNum(providersNumber);
+
         const startIdx = (providerPages - 1) * 5;
         const lastIdx = (providerPages - 1) * 5 + 5;
         // 배우 데이터 5개 가져오기
@@ -184,6 +187,7 @@ export default function DetailContent() {
     fetchContent();
   }, [contentId, providerPages]);
   // console.log(contentInfo);
+  console.log(providersNum);
   console.log(providers);
   // console.log(seasonsInfo);
 
@@ -589,19 +593,22 @@ export default function DetailContent() {
 
           {/* 더보기 & 접기 */}
           <div className="flex flex-col justify-between gap-[10px]">
-            <div
-              className="text-[0.875rem] text-gray02 text-center 
-            font-bold cursor-pointer hover:text-gray01"
-              onClick={() => {
-                setProvidersPages((prev) => (prev += 1));
-              }}
-            >
-              더보기
-            </div>
-            {providerPages === 1 || (
+            {providers.length === providersNum.length || (
               <div
                 className="text-[0.875rem] text-gray02 text-center 
             font-bold cursor-pointer hover:text-gray01"
+                onClick={() => {
+                  setProvidersPages((prev) => (prev += 1));
+                }}
+              >
+                더보기
+              </div>
+            )}
+
+            {providerPages === 1 || (
+              <div
+                className="text-[0.875rem] text-gray02 text-center 
+                font-bold cursor-pointer hover:text-gray01"
                 onClick={() => {
                   setProvidersPages(1);
                 }}
@@ -619,7 +626,11 @@ export default function DetailContent() {
         <div className="text-[1.125rem] text-white font-bold">출연진</div>
         <div className="flex flex-wrap justify-start gap-y-[20px] gap-x-[10px]">
           {actors.map((actor) => (
-            <div key={actor.id} className="flex flex-col gap-[5px]">
+            <Link
+              to={`/detail/person/${actor.id}`}
+              key={actor.id}
+              className="flex flex-col gap-[5px]"
+            >
               {/* 프로필 사진 */}
               <div
                 className="w-[85px] h-[85px] bg-cover bg-center rounded-full"
@@ -639,7 +650,7 @@ export default function DetailContent() {
               >
                 {actor.name}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="flex flex-col justify-between gap-[10px]">
