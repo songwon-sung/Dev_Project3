@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div
       className="fixed w-[30rem] h-[3.625rem] flex justify-center items-center
-              bg-black01/80 text-main font-bold"
+              bg-black01/80 text-main font-bold z-30"
     >
       <Link to="/" className="w-[3.875rem] text-center">
         WONNY MOVIE
