@@ -83,7 +83,7 @@ WONNY MOVIE
 </h2>
 
 <h3 align="left">
- <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
+ <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="22"/>
  미디어 타입별 컨텐츠 정보 제공
 </h3>
 <p>
@@ -97,7 +97,7 @@ WONNY MOVIE
 </P>
 
 <h3 align="left">
- <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
+ <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="22"/>
  컨텐츠 검색
 </h3>
 <P>
@@ -106,6 +106,16 @@ WONNY MOVIE
 <P>
 - 검색 결과 클릭 시 해당 컨텐츠의 상세내용 확인 가능
 </P>
+
+<br/>
+<!-- 아키텍처 -->
+<h2 align="left">
+ <img src="https://github.com/user-attachments/assets/80d5d5a3-2187-422c-9399-80689e1ca1ba" width="18"/>
+  아키텍처
+</h2>
+<h3 align="left">
+ 디렉토리 구조
+</h3>
 
 ```
 ├── README.md
