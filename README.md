@@ -84,7 +84,7 @@ WONNY MOVIE
 
 <div align="left" style="display:flex; flex-direction:row;">
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
- <p style="font-size:20">미디어 타입별 컨텐츠 정보 제공</p>
+ <h3>미디어 타입별 컨텐츠 정보 제공</h3>
 </div>
 <p>
 - 일주일 간 트렌트 컨텐츠 10개 추천
@@ -98,7 +98,7 @@ WONNY MOVIE
 
 <div align="left" style="display:flex; flex-direction:row;">
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
- <p style="font-size:20">컨텐츠 검색</p>
+ <h3 style="font-size:20">컨텐츠 검색</h3>
 </div>
 <P>
 - 검색어 입력 시 TV, MOVIE, PERSON별로 검색 결과 확인 가능
