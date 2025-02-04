@@ -82,10 +82,10 @@ WONNY MOVIE
   주요 기능
 </h2>
 
-<div align="left" style="display:flex; flex-direction:row;">
+<h3 align="left">
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
- <h3>미디어 타입별 컨텐츠 정보 제공</h3>
-</div>
+ 미디어 타입별 컨텐츠 정보 제공
+</h3>
 <p>
 - 일주일 간 트렌트 컨텐츠 10개 추천
 </p>
@@ -96,10 +96,10 @@ WONNY MOVIE
 - 각 리스트별 장르 및 정렬방식을 선택하여 정보 분류 가능
 </P>
 
-<div align="left" style="display:flex; flex-direction:row;">
+<h3 align="left">
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="30" height="30"/>
- <h3 style="font-size:20">컨텐츠 검색</h3>
-</div>
+ 컨텐츠 검색
+</h3>
 <P>
 - 검색어 입력 시 TV, MOVIE, PERSON별로 검색 결과 확인 가능
 </P>
