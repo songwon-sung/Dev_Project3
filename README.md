@@ -66,13 +66,13 @@ WONNY MOVIE
 |                                               HOME 페이지                                                |                                             각 리스트 페이지                                             |
 | :------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/5d080ddd-540b-4600-aa66-d780fc60e3ae" width="500"/> | <img src="https://github.com/user-attachments/assets/d0e359ce-dead-47fd-93b0-2cd0e049f25b" width="500"/> |
-|                                                TV 페이지                                                 |                                               MOVIE 페이지                                               |
+|                                              **TV 페이지**                                               |                                             **MOVIE 페이지**                                             |
 | <img src="https://github.com/user-attachments/assets/5f87472a-32e2-45f2-b5ac-686b5b8f0041" width="500"/> | <img src="https://github.com/user-attachments/assets/7482be10-9513-4516-ac41-6e95e5e3cc09" width="500"/> |
-|                                           TV 컨텐츠 상세페이지                                           |                                           TV 시리즈 상세페이지                                           |
+|                                         **TV 컨텐츠 상세페이지**                                         |                                         **TV 시리즈 상세페이지**                                         |
 | <img src="https://github.com/user-attachments/assets/241121da-85b4-4859-87d1-f15636b25faa" width="500"/> | <img src="https://github.com/user-attachments/assets/69246674-f440-4c20-aca8-923e27f3210f" width="500"/> |
-|                                         MOVIE 컨텐츠 상세페이지                                          |                                             인물 상세페이지                                              |
+|                                       **MOVIE 컨텐츠 상세페이지**                                        |                                           **인물 상세페이지**                                            |
 | <img src="https://github.com/user-attachments/assets/b536b9d8-8d96-45a3-8498-94d781ca79ab" width="500"/> | <img src="https://github.com/user-attachments/assets/3b3d3ca4-e88a-417c-b889-8b07d2cee178" width="500"/> |
-|                                       검색페이지 - 검색어 입력 중                                        |                                      검색페이지 - 검색어 입력 완료                                       |
+|                                     **검색페이지 - 검색어 입력 중**                                      |                                    **검색페이지 - 검색어 입력 완료**                                     |
 | <img src="https://github.com/user-attachments/assets/8461da41-2517-4558-a9f2-e6ff6d3e7ddb" width="500"/> | <img src="https://github.com/user-attachments/assets/79c2b7b4-d9d7-4807-a651-ebd5bfe822ea" width="500"/> |
 
 <br/>
