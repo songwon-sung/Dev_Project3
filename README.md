@@ -1,4 +1,5 @@
 <!-- 메인로고 -->
+# TMDB 개인 프로젝트
 ![header](https://github.com/user-attachments/assets/55d8c813-b6e6-4725-8619-4aa016ef4c36)
 
 <!-- 사이트 간략 설명 -->
@@ -10,11 +11,11 @@
   <img src="https://github.com/user-attachments/assets/160ec0b0-d8af-441e-a773-45bcaa165dba" width="30"/>
   프로젝트 소개
 </h2>
-<p>
-React와 Typescript, axios 개발 역량 강화를 목적으로 한 개인프로젝트로서<br/>
+
+- React와 Typescript, axios 개발 역량 강화를 목적으로 한 개인프로젝트로서<br/>
 디자인부터 퍼블리싱 및 개발, 배포까지 직접 진행하여 <br/>
 TMDB 데이터를 활용한 TV & 영화 정보 제공 사이트를 제작<br/>  
-</p>
+
 
 <br/>
 <!-- 개발 기간 -->
@@ -22,9 +23,9 @@ TMDB 데이터를 활용한 TV & 영화 정보 제공 사이트를 제작<br/>
   <img src="https://github.com/user-attachments/assets/649ca314-bcb5-4fee-a0da-17917c5b395a" width="18"/>
   개발 기간
 </h2>
-<p>
-25.01.23(목) ~ 25.02.03(월) (총 12일간)
-</p>
+
+- 25.01.23(목) ~ 25.02.03(월) (총 12일간)
+
 
 <br/>
 <!-- 개발 환경 -->
@@ -91,26 +92,20 @@ WONNY MOVIE
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="22"/>
  미디어 타입별 컨텐츠 정보 제공
 </h3>
-<p>
+
 - 일주일 간 트렌트 컨텐츠 10개 추천
-</p>
-<P>
 - 각 리스트별 컨텐츠 추천 및 추가 검색 가능
-</P>
-<P>
 - 각 리스트별 장르 및 정렬방식을 선택하여 정보 분류 가능
-</P>
+
 
 <h3 align="left">
  <img src="https://github.com/user-attachments/assets/bd8238ef-8eae-4c85-8382-f782d90aa1a8" width="22"/>
  컨텐츠 검색
 </h3>
-<P>
+
 - 검색어 입력 시 TV, MOVIE, PERSON별로 검색 결과 확인 가능
-</P>
-<P>
 - 검색 결과 클릭 시 해당 컨텐츠의 상세내용 확인 가능
-</P>
+
 
 <br/>
 <!-- 아키텍처 -->
