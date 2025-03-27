@@ -59,9 +59,10 @@ TMDB 데이터를 활용한 TV & 영화 정보 제공 사이트를 제작<br/>
   <img src="https://github.com/user-attachments/assets/1bac4815-9f23-4d91-96f3-228cf91abdc7" width="18"/>
   배포 주소
 </h2>
+<div>
 <a href="https://wonnymovie.netlify.app/">
 WONNY MOVIE
-</a>
+</a></div>
 <br/>
 
 <!-- 화면 구성 -->
