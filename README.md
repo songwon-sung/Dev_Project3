@@ -123,7 +123,7 @@ WONNY MOVIE
 ├── package.json
 └── src
     ├── api
-    │    └── axis.ts : axios 셋팅 파일
+    │    └── axios.ts : axios 셋팅 파일
     ├── assets : 각종 디자인 파일 폴더
     ├── components : 컴포넌트 폴더
     │   ├── common : 공통 사용 컴포넌트 폴더
