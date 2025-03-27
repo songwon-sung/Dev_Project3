@@ -1,7 +1,5 @@
 <!-- 메인로고 -->
-<p align="center">
-<img src="https://github.com/user-attachments/assets/f71fd9eb-71d1-44f3-b431-0d1fb6302a28" />
-</p>
+![header](https://github.com/user-attachments/assets/55d8c813-b6e6-4725-8619-4aa016ef4c36)
 
 <!-- 사이트 간략 설명 -->
 <p align="center">사용자에게 TV 프로그램과 영화에 대한 정보를 제공하는 사이트</p>
