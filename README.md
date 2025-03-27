@@ -35,11 +35,25 @@ TMDB 데이터를 활용한 TV & 영화 정보 제공 사이트를 제작<br/>
   개발 환경
 </h2>
 
-|                                                                               언어                                                                                |                                                                       프레임워크                                                                        |                                                                     HTTP 클라이언트                                                                      |                                                                    패키지 매니저                                                                     |                                                                          스타일링 라이브러리                                                                          |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://img.shields.io/badge/Typescript-3178C6?style=plastic-square&logo=typescript&logoColor=white" width="90" height="25" style="border-radius:5px"/> | <img src="https://img.shields.io/badge/React-61DAFB?style=plastic-square&logo=react&logoColor=white" width="70" height="25" style="border-radius:5px"/> | <img src="https://img.shields.io/badge/ Axios-5A29E4?style=plastic-square&logo=Axios&logoColor=white" width="70" height="25" style="border-radius:5px"/> | <img src="https://img.shields.io/badge/ npm-CB3837?style=plastic-square&logo=npm&logoColor=white" width="60" height="25" style="border-radius:5px"/> | <img src="https://img.shields.io/badge/ Tailwindcss-06B6D4?style=plastic-square&logo=tailwindcss&logoColor=white" width="110" height="25" style="border-radius:5px"/> |
+<div>언어</div>
+<img src="https://img.shields.io/badge/TYPESCRIPT-3178C6?style=plastic-square&logo=typescript&logoColor=white" width="110" height="25" style="border-radius:5px"/> 
+<div>라이브러리</div>
+<img src="https://img.shields.io/badge/ REACT-61DAFB?style=plastic-square&logo=react&logoColor=white" width="70" height="25" style="border-radius:5px"/> 
+<div>HTTP 요청 관리</div>
+<img src="https://img.shields.io/badge/ AXIOS-5A29E4?style=plastic-square&logo=Axios&logoColor=white" width="70" height="25" style="border-radius:5px"/> 
+<div>패키지 매니저</div>
+<img src="https://img.shields.io/badge/ NPM-CB3837?style=plastic-square&logo=npm&logoColor=white" width="60" height="25" style="border-radius:5px"/> 
+<div>스타일링</div>
+<img src="https://img.shields.io/badge/ TAILWIND CSS-06B6D4?style=plastic-square&logo=tailwindcss&logoColor=white" width="120" height="25" style="border-radius:5px"/> 
+<div>라우팅</div>
+<img src="https://img.shields.io/badge/ REACT ROUTER-CA4245?style=plastic-square&logo=ReactRouter&logoColor=white" width="120" height="25" style="border-radius:5px"/> 
+<div>디자인 도구</div>
+<img src="https://img.shields.io/badge/ FIGMA-F24E1E?style=plastic-square&logo=FIGMA&logoColor=white" width="75" height="25" style="border-radius:5px"/> 
+<div>배포 플랫폼</div>
+<img src="https://img.shields.io/badge/ NETLIFY-00C7B7?style=plastic-square&logo=NETLIFY&logoColor=white" width="80" height="25" style="border-radius:5px"/>
 
 <br/>
+
 <!-- 배포 주소 -->
 <h2 align="left">
   <img src="https://github.com/user-attachments/assets/1bac4815-9f23-4d91-96f3-228cf91abdc7" width="18"/>
@@ -48,8 +62,8 @@ TMDB 데이터를 활용한 TV & 영화 정보 제공 사이트를 제작<br/>
 <a href="https://wonnymovie.netlify.app/">
 WONNY MOVIE
 </a>
-
 <br/>
+
 <!-- 화면 구성 -->
 <h2 align="left">
   <img src="https://github.com/user-attachments/assets/b0c275a2-0489-4a48-936b-e8c0764d1c00" width="18"/>
@@ -67,7 +81,6 @@ WONNY MOVIE
 | <img src="https://github.com/user-attachments/assets/b536b9d8-8d96-45a3-8498-94d781ca79ab" width="500"/> | <img src="https://github.com/user-attachments/assets/3b3d3ca4-e88a-417c-b889-8b07d2cee178" width="500"/> |
 |                                     **검색페이지 - 검색어 입력 중**                                      |                                    **검색페이지 - 검색어 입력 완료**                                     |
 | <img src="https://github.com/user-attachments/assets/8461da41-2517-4558-a9f2-e6ff6d3e7ddb" width="500"/> | <img src="https://github.com/user-attachments/assets/79c2b7b4-d9d7-4807-a651-ebd5bfe822ea" width="500"/> |
-
 <br/>
 <!-- 주요 기능 -->
 <h2 align="left">
