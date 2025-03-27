@@ -6,13 +6,6 @@
 <!-- 사이트 간략 설명 -->
 <p align="center">사용자에게 TV 프로그램과 영화에 대한 정보를 제공하는 사이트</p>
 
-<!-- 방문자 수 -->
-<div align="center">
- <a href="https://github.com/songwon-sung/Dev_Project3">
- <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsongwon-sung%2FDev_Project3&count_bg=%2360CB73&title_bg=%231E1E1E&icon=&icon_color=%23E7E7E7&title=VISIT&edge_flat=false"/>
- </a>
-</div>
-
 <br/>
 <!-- 프로젝트 소개 -->
 <h2 align="left">
